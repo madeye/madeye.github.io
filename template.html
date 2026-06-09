@@ -112,6 +112,26 @@
     vertical-align: middle;
   }
 
+  /* Star count highlight */
+  .stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-weight: 600;
+    color: var(--star);
+  }
+  .stars svg { width: 0.9em; height: 0.9em; fill: currentColor; }
+  /* Strong highlight for popular repos (10k+ stars) */
+  .stars.hot {
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #f7b733, #e3b341);
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(227, 179, 65, 0.4);
+  }
+  .stars.hot svg { fill: #fff; }
+
   .footer {
     margin-top: 3rem;
     padding-top: 1.5rem;

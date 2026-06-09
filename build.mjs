@@ -95,14 +95,19 @@ function renderProfile(u) {
       </div>`;
 }
 
+const STAR_ICON =
+  '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>';
+
 function renderRepo(r, now) {
   const langColor = LANG_COLORS[r.language] || "#8b949e";
+  // Strong highlight for repos with 10k+ stars.
+  const hot = r.stargazers_count >= 10000 ? " hot" : "";
   return `<a href="${escapeHtml(r.html_url)}" class="repo-card" style="text-decoration:none;color:inherit">
         <h3>${escapeHtml(r.full_name)}</h3>
         ${r.description ? `<p class="desc">${escapeHtml(r.description)}</p>` : `<p class="desc" style="opacity:0.5">No description</p>`}
         <div class="repo-meta">
           ${r.language ? `<span><span class="lang-dot" style="background:${langColor}"></span>${escapeHtml(r.language)}</span>` : ""}
-          <span>${r.stargazers_count.toLocaleString("en-US")} stars</span>
+          <span class="stars${hot}">${STAR_ICON}${r.stargazers_count.toLocaleString("en-US")}</span>
           <span>Updated ${timeAgo(r.updated_at, now)}</span>
         </div>
       </a>`;

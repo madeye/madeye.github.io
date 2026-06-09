@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Lv — Open Source Projects</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-card: #f6f8fa;
+    --text: #1f2328;
+    --text-secondary: #656d76;
+    --border: #d0d7de;
+    --link: #0969da;
+    --star: #e3b341;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --border: #30363d;
+      --link: #58a6ff;
+      --star: #e3b341;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Profile */
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .profile img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+  }
+  .profile-info h1 { font-size: 1.5rem; }
+  .profile-info .bio { color: var(--text-secondary); margin: 0.25rem 0; }
+  .profile-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  .profile-meta span::before { margin-right: 0.25rem; }
+
+  /* Repos */
+  .repos-heading {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+  }
+  .repos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+  .repo-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.15s;
+  }
+  .repo-card:hover { border-color: var(--link); }
+  .repo-card h3 { font-size: 1rem; font-weight: 600; }
+  .repo-card .desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .repo-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .lang-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
+
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .repos { grid-template-columns: 1fr; }
+    .profile { gap: 1rem; }
+    .profile img { width: 64px; height: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<section id="profile" class="profile">
+{{PROFILE}}
+</section>
+
+<h2 class="repos-heading" id="repos-heading">Open Source Projects</h2>
+<section id="repos" class="repos">
+{{REPOS}}
+</section>
+
+<footer class="footer">
+  Snapshot generated {{GENERATED_AT}} · Data from
+  <a href="https://github.com/madeye">GitHub</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+name: Daily snapshot
+
+on:
+  schedule:
+    # Run daily at 03:00 UTC.
+    - cron: "0 3 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Need write access to push the generated site to the gh-pages branch.
+permissions:
+  contents: write
+
+# Avoid overlapping deploys racing the gh-pages branch.
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Snapshot repos into index.html
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node build.mjs
+
+      - name: Publish to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Stage only the published site so gh-pages stays source-free.
+          rm -rf _site
+          mkdir _site
+          cp index.html _site/
+          touch _site/.nojekyll
+
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Snapshot $(date -u +%Y-%m-%d)"
+          # Force-push a single-commit branch so history stays clean.
+          git push -f -q \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            gh-pages

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Lv — Open Source Projects</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-card: #f6f8fa;
+    --text: #1f2328;
+    --text-secondary: #656d76;
+    --border: #d0d7de;
+    --link: #0969da;
+    --star: #e3b341;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --border: #30363d;
+      --link: #58a6ff;
+      --star: #e3b341;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Profile */
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .profile img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+  }
+  .profile-info h1 { font-size: 1.5rem; }
+  .profile-info .bio { color: var(--text-secondary); margin: 0.25rem 0; }
+  .profile-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  .profile-meta span::before { margin-right: 0.25rem; }
+
+  /* Repos */
+  .repos-heading {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+  }
+  .repos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+  .repo-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.15s;
+  }
+  .repo-card:hover { border-color: var(--link); }
+  .repo-card h3 { font-size: 1rem; font-weight: 600; }
+  .repo-card .desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .repo-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .lang-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
+
+  /* Star count highlight */
+  .stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-weight: 600;
+    color: var(--star);
+  }
+  .stars svg { width: 0.9em; height: 0.9em; fill: currentColor; }
+  /* Strong highlight for popular repos (10k+ stars) */
+  .stars.hot {
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #f7b733, #e3b341);
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(227, 179, 65, 0.4);
+  }
+  .stars.hot svg { fill: #fff; }
+
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .repos { grid-template-columns: 1fr; }
+    .profile { gap: 1rem; }
+    .profile img { width: 64px; height: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<section id="profile" class="profile">
+
+      <a href="https://github.com/madeye"><img src="https://avatars.githubusercontent.com/u/627917?v=4" alt="Max Lv"></a>
+      <div class="profile-info">
+        <h1>Max Lv</h1>
+        <p class="bio">Chip Architect at NVIDIA</p>
+        <div class="profile-meta">
+          <span>NVIDIA</span>
+          <span>Shanghai, China</span>
+          <span><a href="https://maxlv.net">https://maxlv.net</a></span>
+          <span><a href="https://github.com/madeye">@madeye</a></span>
+        </div>
+      </div>
+</section>
+
+<h2 class="repos-heading" id="repos-heading">Open Source Projects</h2>
+<section id="repos" class="repos">
+<a href="https://github.com/madeye/rv" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/rv</h3>
+        <p class="desc">Native desktop VNC viewer in Rust with GPUI</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>32</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/shadowsocks/shadowsocks-libev" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>shadowsocks/shadowsocks-libev</h3>
+        <p class="desc">Bug-fix-only libev port of shadowsocks. Future development moved to shadowsocks-rust</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars hot"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>16,178</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/shadowsocks/shadowsocks-android" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>shadowsocks/shadowsocks-android</h3>
+        <p class="desc">A shadowsocks client for Android</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#A97BFF"></span>Kotlin</span>
+          <span class="stars hot"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>36,788</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/taiwan-strait-monitor" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/taiwan-strait-monitor</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/silicon-civilization-stock-trade" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/silicon-civilization-stock-trade</h3>
+        <p class="desc">硅基文明消费股交易策略系统 · DeepSeek v4-pro · akshare · 回测 · Next.js</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>50</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/qwen38-flash-next-on-dgx-spark" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/qwen38-flash-next-on-dgx-spark</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/BaoLianDeng" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/BaoLianDeng</h3>
+        <p class="desc">A macOS VPN proxy app powered by meow-rs, a Clash-compatible proxy kernel written in Rust</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>773</span>
+          <span>Updated today</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/proxydroid" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/proxydroid</h3>
+        <p class="desc">Global Proxy for Android</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#A97BFF"></span>Kotlin</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2,549</span>
+          <span>Updated yesterday</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/Legend-of-Sword-and-Fairy" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/Legend-of-Sword-and-Fairy</h3>
+        <p class="desc">A complete Rust port of the PAL (Legend of Sword and Fairy) DOS engine, playable natively or in the browser via wasm</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>167</span>
+          <span>Updated yesterday</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/comfyui-minimax-h3-dgx-spark" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/comfyui-minimax-h3-dgx-spark</h3>
+        <p class="desc">ComfyUI + MiniMax-H3 (fp8 pruned) on NVIDIA GB10 / DGX Spark — setup, 4-8 step turbo workflows, and an fp8 vs int8 benchmark</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>5</span>
+          <span>Updated 2 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dhtsearch" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dhtsearch</h3>
+        <p class="desc">自建索引的磁力链接搜索引擎：Go DHT 爬虫 + 关键词/启发式过滤 + LLM 二次审核，Next.js 前端</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#00ADD8"></span>Go</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>73</span>
+          <span>Updated 2 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/shadowsocks/shadowsocks-org" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>shadowsocks/shadowsocks-org</h3>
+        <p class="desc">www.shadowsocks.org</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#e34c26"></span>HTML</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1,033</span>
+          <span>Updated 2 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/gaeproxy" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/gaeproxy</h3>
+        <p class="desc">GAEProxy for Android (Deprecated)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>791</span>
+          <span>Updated 2 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ad-skipper" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ad-skipper</h3>
+        <p class="desc">Local VLM-based Android splash-ad skipper: accessibility service + three-tier detection (node match -&gt; OCR -&gt; llama.cpp GGUF VLM grounding)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#A97BFF"></span>Kotlin</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>123</span>
+          <span>Updated 3 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/LianYaoHu" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/LianYaoHu</h3>
+        <p class="desc">炼妖壶 — run Claude Code, Codex, or any coding agent in a deny-default sandbox with VPN-only network egress. sandbox-exec + PF on macOS, Landlock/seccomp + iptables on Linux.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>18</span>
+          <span>Updated 3 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/shadowvpn-ios" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/shadowvpn-ios</h3>
+        <p class="desc">Native iOS client for ShadowVPN — a UDP, pre-shared-key, layer-3 tunnel using the shadowsocks AEAD UDP wire scheme (SwiftUI app + NEPacketTunnelProvider + Rust core).</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>52</span>
+          <span>Updated 4 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/SwitchyDelta" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/SwitchyDelta</h3>
+        <p class="desc">SwitchyDelta — forked from FelisCatus/SwitchyOmega</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>22</span>
+          <span>Updated 4 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/datacenter-probe" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/datacenter-probe</h3>
+        <p class="desc">乌兰察布 50km 在建数据中心卫星核查</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 6 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/silicon-civilization-stock-trade-us" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/silicon-civilization-stock-trade-us</h3>
+        <p class="desc">Silicon Civilization Stocks — US-market AI-infrastructure trading dashboard (DeepSeek signals + Yahoo Finance + Next.js)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 6 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/qwen3.8-dflash2-gb10" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/qwen3.8-dflash2-gb10</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 6 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/shadowvpn" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/shadowvpn</h3>
+        <p class="desc">ShadowVPN: UDP PSK user-mode VPN with shadowsocks AEAD</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>101</span>
+          <span>Updated 6 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/gterm" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/gterm</h3>
+        <p class="desc">iOS terminal app with SSH support, powered by the Ghostty engine (libghostty), with a custom on-screen keyboard.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>67</span>
+          <span>Updated 9 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/mcp-cli" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/mcp-cli</h3>
+        <p class="desc">a prototype to save fork/exec overhead of ai code agent</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>117</span>
+          <span>Updated 9 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/hot-stock-china" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/hot-stock-china</h3>
+        <p class="desc">A股热门股票Top100 - 每日自动更新</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#e34c26"></span>HTML</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>23</span>
+          <span>Updated 11 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/runse-mac" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/runse-mac</h3>
+        <p class="desc">Refine and translate selected text in any macOS app. Services menu, global hotkeys, and a floating action bar over your selection — powered by your favorite LLM provider.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>7</span>
+          <span>Updated 15 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/trans_proxy" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/trans_proxy</h3>
+        <p class="desc">Transparent proxy for macOS and Linux that intercepts TCP traffic via pf/nftables and forwards it through an upstream HTTP CONNECT proxy</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>29</span>
+          <span>Updated 15 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/meow-go" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/meow-go</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#00B4AB"></span>Dart</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>10</span>
+          <span>Updated 16 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/https_proxy" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/https_proxy</h3>
+        <p class="desc">Stealth HTTPS forward proxy with automatic Let&#39;s Encrypt TLS and nginx camouflage</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>28</span>
+          <span>Updated 16 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/jobs" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/jobs</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#e34c26"></span>HTML</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>54</span>
+          <span>Updated 16 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/de-llm-watermark" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/de-llm-watermark</h3>
+        <p class="desc">Detect and remove invisible watermarks from LLM-generated text (Unicode scrubbing + EN-ZH-EN round-trip translation)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 17 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ai-dashboard" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ai-dashboard</h3>
+        <p class="desc">AI news dashboard: aggregates Google News, Reddit, Hacker News and arXiv with LLM-generated Chinese insights</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 17 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/mcp-distill" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/mcp-distill</h3>
+        <p class="desc">MCP server (Rust) that records prompts/context/responses from Claude and Codex for small-model distillation</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>9</span>
+          <span>Updated 17 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/opencl-android-proprietary" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/opencl-android-proprietary</h3>
+        <p class="desc">Proprietary OpenCL drivers for Android</p>
+        <div class="repo-meta">
+          
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>19</span>
+          <span>Updated 21 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/obfs4-tunnel" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/obfs4-tunnel</h3>
+        <p class="desc">obfs4 tunnel</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#00ADD8"></span>Go</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>53</span>
+          <span>Updated 21 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/tcp_china" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/tcp_china</h3>
+        <p class="desc">TCP China congestion control algorithm</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>107</span>
+          <span>Updated 21 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/sshtunnel" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/sshtunnel</h3>
+        <p class="desc">Automatically exported from code.google.com/p/sshtunnel</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#b07219"></span>Java</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>20</span>
+          <span>Updated 21 days ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/rply-security-analysis" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/rply-security-analysis</h3>
+        <p class="desc">Static security analysis of RPLY.app v2.2.5 (com.noxai.nox.RPLY) — a notarized macOS app shipping browser session-token extraction</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#e34c26"></span>HTML</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/sshttp" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/sshttp</h3>
+        <p class="desc">HTTP CONNECT proxy that tunnels every request through a single SSH session</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/fof-quant" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/fof-quant</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>4</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/madeye.github.io" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/madeye.github.io</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#f1e05a"></span>JavaScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/subtitle_anywhere" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/subtitle_anywhere</h3>
+        <p class="desc">Batch-generate bilingual external subtitles for local media files using MLX Whisper on Apple Silicon</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>30</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ds-input" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ds-input</h3>
+        <p class="desc">DS Input — an LLM whole-sentence pinyin input method (macOS + Windows): toneless pinyin → Chinese inline, no candidate window. Rust core (C ABI) + thin native frontends.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#f34b7d"></span>C++</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>52</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ghostty" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ghostty</h3>
+        <p class="desc">Fork of ghostty with a passthru termio backend for embedder-provided IO (drives the terminal from a network/SSH transport). Used by github.com/madeye/gterm.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#8b949e"></span>Zig</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 1 month ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/bangumi-downloader" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/bangumi-downloader</h3>
+        <p class="desc">Next.js web app aggregating bangumi.moe and DHT torrent search results</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>25</span>
+          <span>Updated 2 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/sensevoice-mlx" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/sensevoice-mlx</h3>
+        <p class="desc">SenseVoice-Small speech recognition model converted to CoreML for Apple Neural Engine</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 2 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/tailscale-ss" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/tailscale-ss</h3>
+        <p class="desc">Rust implementation of Tailscale (preview, experimental)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 2 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dewatermark" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dewatermark</h3>
+        <p class="desc">CLI tool to automatically detect and remove watermarks from videos</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>4</span>
+          <span>Updated 2 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/tingxie" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/tingxie</h3>
+        <p class="desc">English dictation (听写) audio generator — txt script or photo in, natural MLX TTS (Kokoro) dictation WAV out, fully on-device on Apple Silicon</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 2 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/shadowsocks-zig" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/shadowsocks-zig</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#8b949e"></span>Zig</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/external_sshtunnel" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/external_sshtunnel</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>11</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/runse" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/runse</h3>
+        <p class="desc">iOS app for refining prompts and running LLM requests</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/sip003-http2-obfuscator" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/sip003-http2-obfuscator</h3>
+        <p class="desc">An example project for this blog post. https://maxlv.net/blog/diy-sip003-protocol/ do not use it in real world use cases.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#00ADD8"></span>Go</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>19</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/hot-music-china" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/hot-music-china</h3>
+        <p class="desc">[Vibe coding] 中国音乐流媒体热门歌曲排行榜</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#e34c26"></span>HTML</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dns-tunnel" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dns-tunnel</h3>
+        <p class="desc">SIP003 Shadowsocks plugin: obfuscate traffic as standards-conformant DNS-over-QUIC (RFC 9250)</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/macmtr" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/macmtr</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 3 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/tun2proxy" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/tun2proxy</h3>
+        <p class="desc">Rust TUN-to-proxy library and CLI on netstack-smoltcp. SOCKS5, HTTP/1.1, HTTPS, and HTTP/2 CONNECT with optional Basic auth.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 4 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/deblur" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/deblur</h3>
+        <p class="desc">deblur images on GPU</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>34</span>
+          <span>Updated 4 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/snipit" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/snipit</h3>
+        <p class="desc">Screenshot app for macOS</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#F05138"></span>Swift</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 4 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ghostty-config" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ghostty-config</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>1</span>
+          <span>Updated 6 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dot-config" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dot-config</h3>
+        <p class="desc">Web-based dotfile configuration UI built with Leptos and Axum</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 6 months ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/trust-china-dns" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/trust-china-dns</h3>
+        <p class="desc">A China-DNS implementation in Rust.</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>19</span>
+          <span>Updated 2 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/opencl-stub" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/opencl-stub</h3>
+        <p class="desc">My OpenCL stub libraries</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 2 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/GRACE" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/GRACE</h3>
+        <p class="desc">GPU based data RACE detection tool</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>5</span>
+          <span>Updated 2 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dotfiles" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dotfiles</h3>
+        <p class="desc">dotfiles</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#8b949e"></span>Emacs Lisp</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>6</span>
+          <span>Updated 3 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/cuda-surf" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/cuda-surf</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#555555"></span>C</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>5</span>
+          <span>Updated 3 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/maven-repository" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/maven-repository</h3>
+        <p class="desc">My own maven repository</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#89e051"></span>Shell</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>7</span>
+          <span>Updated 3 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/ditaa-eps" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/ditaa-eps</h3>
+        <p class="desc">A fork of ditaa-addon with the latest ditaa libary</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#b07219"></span>Java</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 6 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/box" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/box</h3>
+        <p class="desc">A public server box</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#8b949e"></span>Dockerfile</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 7 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/dbartists" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/dbartists</h3>
+        <p class="desc">Douban Artists Third-party Android Client</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#b07219"></span>Java</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>3</span>
+          <span>Updated 8 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/srlf" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/srlf</h3>
+        <p class="desc">Salient Region Conducted Local Feature</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#701516"></span>Ruby</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>2</span>
+          <span>Updated 11 years ago</span>
+        </div>
+      </a>
+<a href="https://github.com/madeye/refine" class="repo-card" style="text-decoration:none;color:inherit">
+        <h3>madeye/refine</h3>
+        <p class="desc" style="opacity:0.5">No description</p>
+        <div class="repo-meta">
+          <span><span class="lang-dot" style="background:#f34b7d"></span>C++</span>
+          <span class="stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path></svg>0</span>
+          <span>Updated 12 years ago</span>
+        </div>
+      </a>
+</section>
+
+<footer class="footer">
+  Snapshot generated 2026-09-06 · Data from
+  <a href="https://github.com/madeye">GitHub</a>
+</footer>
+
+</body>
+</html>
